@@ -1,5 +1,6 @@
 package com.jkgupta.android.jobseek;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -54,11 +55,14 @@ public class MainActivity extends AppCompatActivity {
                 registrationModal.setEmail(email.getText().toString());
                 registrationModal.setPassword(password.getText().toString());
                 registrationModal.setUser_type(rb.getText().toString());
-                Log.v("Pune", registrationModal.getPassword());dbCreater.addUser(registrationModal);
+                Log.v("Pune", registrationModal.getPassword());
+                dbCreater.addUser(registrationModal);
 
 
                 Toast.makeText(MainActivity.this, rb.getText(), Toast.LENGTH_SHORT).show();
                 Toast.makeText(MainActivity.this, "Registered", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                startActivity(intent);
             }
         });
 
