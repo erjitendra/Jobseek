@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.jkgupta.android.jobseek.RegistrationModal;
 
@@ -46,7 +47,10 @@ public class DbCreater extends SQLiteOpenHelper {
     }
 
     public void addUser(RegistrationModal user) {
+        Log.v("Pune",user.getName());
         SQLiteDatabase db = this.getWritableDatabase();
+
+        Log.v("Pune", "before content model");
 
         ContentValues values = new ContentValues();
         values.put(UserDataTable.USER_COLUMN_NAME, user.getName());
