@@ -35,6 +35,39 @@ public class LoginActivity extends AppCompatActivity {
                 UserModel userModel=dbCreater.getUser(LoginDataHolder);
                 if(userModel.isUser_in_Db()){
 
+                    String user_type_rec="Recruiter";
+                    String user_type_user="User";
+
+
+                    if(userModel.getUser_Type().equals(user_type_rec))
+                    {
+                        Intent intent = new Intent(getBaseContext(), RecruiterActivity.class);
+                        Bundle b = new Bundle();
+                        b.putString("user_type", String.valueOf(userModel.getUser_Type()));
+                        b.putString("user_id", String.valueOf(userModel.getUser_Id()));
+                        b.putString("email", userModel.getEmail());
+                        b.putString("name", String.valueOf(userModel.getName()));
+
+
+                        intent.putExtras(b);
+                        startActivity(intent);
+                    }
+
+                     if(userModel.getUser_Type().equals(user_type_user))
+                    {
+                        Intent intent = new Intent(getBaseContext(), UserActivity.class);
+                        Bundle b = new Bundle();
+                        b.putString("user_type", String.valueOf(userModel.getUser_Type()));
+                        b.putString("user_id", String.valueOf(userModel.getUser_Id()));
+                        b.putString("email", userModel.getEmail());
+                        b.putString("name", String.valueOf(userModel.getName()));
+
+
+                        intent.putExtras(b);
+                        startActivity(intent);
+
+                    }
+
                     Log.v("Pune",userModel.getName()+"Hi");
                     Log.v("Pune",userModel.getUser_Id()+"Hi");
                     Toast.makeText(LoginActivity.this,userModel.getName(), Toast.LENGTH_SHORT).show();

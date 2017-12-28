@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.jkgupta.android.jobseek.JobPostModel;
 import com.jkgupta.android.jobseek.LoginModel;
 import com.jkgupta.android.jobseek.RegistrationModal;
 import com.jkgupta.android.jobseek.UserModel;
@@ -34,8 +35,16 @@ public class DbCreater extends SQLiteOpenHelper {
                 + UserDataTable.USER_COLUMN_PASSWORD + " TEXT NOT NULL, "
                 + UserDataTable.USER_COLUMN_USER_Type + " TEXT NOT NULL );";
 
+        String SQL_CREATE_JOBPOST_TABLE = "CREATE TABLE " + JobPostTable.JOBPOST_TABLE_NAME+ " ("
+                + JobPostTable.JOBPOST_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + JobPostTable.JOBPOST_COLUMN_COMPANY + " TEXT NOT NULL, "
+                + JobPostTable.JOBPOST_COLUMN_RECRUITER_ID + " TEXT NOT NULL, "
+                + JobPostTable.JOBPOST_COLUMN_DESCRIPTION + " TEXT NOT NULL, "
+                + JobPostTable.JOBPOST_COLUMN_SKILLS + " TEXT NOT NULL );";
+
         // Execute the SQL statement
         db.execSQL(SQL_CREATE_JOBSEEK_TABLE);
+        db.execSQL(SQL_CREATE_JOBPOST_TABLE);
 
     }
 
@@ -58,12 +67,13 @@ public class DbCreater extends SQLiteOpenHelper {
         values.put(UserDataTable.USER_COLUMN_NAME, user.getName());
         values.put(UserDataTable.USER_COLUMN_EMAIL, user.getEmail());
         values.put(UserDataTable.USER_COLUMN_PASSWORD, user.getPassword());
-        values.put(UserDataTable.USER_COLUMN_USER_Type, user.getPassword());
+        values.put(UserDataTable.USER_COLUMN_USER_Type, user.getUser_type());
 
         // Inserting Row
         db.insert(UserDataTable.USER_TABLE_NAME, null, values);
         db.close();
     }
+
 
     public UserModel getUser(LoginModel loginModel) {
         //Open the database
@@ -116,6 +126,23 @@ public class DbCreater extends SQLiteOpenHelper {
         return userModel;
 
 
+    }
+
+    public void addJob(JobPostModel job) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Log.v("Pune", "before content model");
+
+        ContentValues values = new ContentValues();
+        values.put(JobPostTable.JOBPOST_COLUMN_COMPANY, job.getCompany());
+        values.put(JobPostTable.JOBPOST_COLUMN_DESCRIPTION, job.getDescription());
+        values.put(JobPostTable.JOBPOST_COLUMN_RECRUITER_ID, job.getRec_id());
+        values.put(JobPostTable.JOBPOST_COLUMN_SKILLS, job.getSkills());
+
+        // Inserting Row
+        db.insert(JobPostTable.JOBPOST_TABLE_NAME, null, values);
+        db.close();
     }
 
 
