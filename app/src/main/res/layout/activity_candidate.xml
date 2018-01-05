@@ -6,40 +6,39 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context="com.jkgupta.android.jobseek.PostJobActivity">
+    tools:context="com.jkgupta.android.jobseek.CandidateActivity">
 
-    <EditText
-        android:id="@+id/et_jobpost_skills"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:hint="Skill"/>
-    <EditText
-        android:id="@+id/et_jobpost_company"
+        android:textSize="18sp"
+        android:text="Jitendra"
+        android:id="@+id/tv_candidate_name"
+        />
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:hint="Company Name"/>
-    <EditText
-        android:id="@+id/et_jobpost_description"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:hint="Description"/>
+        android:textSize="18sp"
+        android:text="jkguptaer@gmail.com"
+        android:id="@+id/tv_candidate_email"
+        />
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewcandidate"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7"
+        android:padding="5dp">
+
+    </android.support.v7.widget.RecyclerView>
     <Button
-        android:id="@+id/bt_postjob_create"
+        android:id="@+id/bt_candidate_logout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-
-        android:text="Create Job"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="5">
-
-    </LinearLayout>
+        android:text="Logout"></Button>
 
 
 </LinearLayout>

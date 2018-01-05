@@ -15,7 +15,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText editTextEmail;
     private EditText editTextPassword;
     private LoginModel LoginDataHolder = new LoginModel();
-    private DbCreater dbCreater = new DbCreater(this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,14 +29,14 @@ public class LoginActivity extends AppCompatActivity {
         LoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                DbCreater dbCreater = new DbCreater(getBaseContext());
                 LoginDataHolder.setEmail(editTextEmail.getText().toString());
                 LoginDataHolder.setPassword(editTextPassword.getText().toString());
                 UserModel userModel=dbCreater.getUser(LoginDataHolder);
                 if(userModel.isUser_in_Db()){
 
                     String user_type_rec="Recruiter";
-                    String user_type_user="User";
+                    String user_type_user="User ";
 
 
                     if(userModel.getUser_Type().equals(user_type_rec))
@@ -53,9 +53,10 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
 
-                     if(userModel.getUser_Type().equals(user_type_user))
+                     else if(userModel.getUser_Type().equals(user_type_user))
                     {
-                        Intent intent = new Intent(getBaseContext(), UserActivity.class);
+                    Log.v("candidate",userModel.getUser_Type().equals(user_type_user)+"");
+                        Intent intent = new Intent(getBaseContext(), CandidateActivity.class);
                         Bundle b = new Bundle();
                         b.putString("user_type", String.valueOf(userModel.getUser_Type()));
                         b.putString("user_id", String.valueOf(userModel.getUser_Id()));

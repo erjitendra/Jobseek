@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="10dp"
     tools:context="com.jkgupta.android.jobseek.MainActivity">
 
     <EditText
@@ -12,30 +13,38 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:textSize="18sp"
+        android:padding="10dp"
         android:hint="Name"/>
     <EditText
         android:id="@+id/et_reg_email"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:textSize="18sp"
+        android:padding="10dp"
         android:hint="Email"/>
     <EditText
         android:id="@+id/et_reg_pass"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:textSize="18sp"
+        android:padding="10dp"
         android:hint="Password"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
+        android:padding="10dp"
         android:orientation="horizontal">
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="You Are:"/>
+            android:textSize="18sp"
+            android:text="You Are: "/>
         <RadioGroup
             android:id="@+id/radioGroup"
             android:layout_width="fill_parent"
@@ -65,8 +74,22 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-
-        android:text="Signup"/>
+        android:background="@drawable/bg_red"
+        android:gravity="center"
+        android:text="Register"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"/>
+    <Button
+        android:id="@+id/bt_reg_login"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
+        android:background="@drawable/bg_red"
+        android:gravity="center"
+        android:text="Login"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"/>
 
 
 </LinearLayout>

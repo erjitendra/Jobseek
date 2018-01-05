@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Button reg_Button = findViewById(R.id.bt_reg_signup);
+        Button login_Button = findViewById(R.id.bt_reg_login);
         name = findViewById(R.id.et_reg_name);
         email = findViewById(R.id.et_reg_email);
         password = findViewById(R.id.et_reg_pass);
@@ -61,6 +62,13 @@ public class MainActivity extends AppCompatActivity {
 
                 Toast.makeText(MainActivity.this, rb.getText(), Toast.LENGTH_SHORT).show();
                 Toast.makeText(MainActivity.this, "Registered", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+        login_Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(), LoginActivity.class);
                 startActivity(intent);
             }

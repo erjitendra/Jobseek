@@ -8,6 +8,18 @@ public class JobPostModel {
     private String skills;
     private String company;
     private String description;
+    private String rec_id;
+
+    public String getRec_email() {
+        return rec_email;
+    }
+
+    public void setRec_email(String rec_email) {
+        this.rec_email = rec_email;
+    }
+
+    private String rec_email;
+
 
     public String getSkills() {
         return skills;
@@ -41,6 +53,6 @@ public class JobPostModel {
         this.rec_id = rec_id;
     }
 
-    private String rec_id;
+
 }
 

@@ -10,16 +10,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
+
+        </activity>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".RecruiterActivity" />
+        <activity android:name=".PostJobActivity" />
+        <activity android:name=".CandidateActivity" />
+        <activity android:name=".SpleshScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".RecruiterActivity" />
-        <activity android:name=".PostJobActivity" />
-        <activity android:name=".UserActivity"></activity>
     </application>
 
 </manifest>
