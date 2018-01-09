@@ -101,14 +101,16 @@ public class DbCreater extends SQLiteOpenHelper {
 
             String selectQuerySQLCommand = "SELECT * FROM " + UserDataTable.USER_TABLE_NAME + " ORDER BY _id DESC";
             Cursor cursor = db.rawQuery(selectQuerySQLCommand, null);
-            if (cursor.moveToFirst()) {
+            while (cursor.moveToNext()) {
 
                 String email = cursor.getString(cursor.getColumnIndex(UserDataTable.USER_COLUMN_EMAIL));
                 String password = cursor.getString(cursor.getColumnIndex(UserDataTable.USER_COLUMN_PASSWORD));
-                Log.v("Puneee", email + email.length());
-                Log.v("Puneee", password);
-                Log.v("Puneee", loginModel.getEmail() + loginModel.getEmail().length());
-                Log.v("Puneee", loginModel.getPassword());
+                String column_id = cursor.getString(cursor.getColumnIndex(UserDataTable.USER_COLUMN_ID));
+                Log.v("Done", email + email.length());
+                Log.v("Done", password);
+                Log.v("Done", column_id);
+                Log.v("Done", loginModel.getEmail() + loginModel.getEmail().length());
+                Log.v("Done", loginModel.getPassword());
 
                 if ((loginModel.getEmail().equals(email)) && (loginModel.getPassword().equals(password))) {
 
@@ -120,8 +122,8 @@ public class DbCreater extends SQLiteOpenHelper {
                     userModel.setEmail(email);
                     userModel.setUser_Type(user_Type);
                     userModel.setUser_Id(id);
-                    Log.v("Pune1", name);
-                    Log.v("Pune1", email);
+                    Log.v("Done1", name);
+                    Log.v("Done1", email);
                 }
 
 
@@ -165,6 +167,7 @@ public class DbCreater extends SQLiteOpenHelper {
         SQLiteDatabase db1 = this.getWritableDatabase();
 
         Log.v("in add job", "before content model");
+        Log.v("Done", job_post_id);
 
         ContentValues values = new ContentValues();
         values.put(ApplyJobTable.APPLIEDJOB_COLUMN_JOBPOST_ID,job_post_id );
@@ -174,6 +177,7 @@ public class DbCreater extends SQLiteOpenHelper {
         // Inserting Row
         db1.insert(ApplyJobTable.APPLIEDJOB_TABLE_NAME, null, values);
         db1.close();
+        Log.v("Done", "Applied successful");
     }
 
     public ArrayList<JobViewModel> viewJobPosted(Bundle bundle) {
@@ -265,6 +269,7 @@ public class DbCreater extends SQLiteOpenHelper {
                     String jobPostId = cursor.getString(cursor.getColumnIndex(JobPostTable.JOBPOST_COLUMN_ID));
 
                     Log.v("viewjob", skills + description);
+                    Log.v("Done Viewjob post id", jobPostId);
 
                     jobViewModel.setSkills(skills);
                     jobViewModel.setDescription(description);
@@ -273,9 +278,9 @@ public class DbCreater extends SQLiteOpenHelper {
                     jobViewModel.setCompany(company);
                     jobViewModel.setEmail(email);
                     jobViewModel.setCandidate_id(bundle.getString("user_id"));
-//                    jobViewModel.setJob_post_id(jobPostId);
+                    jobViewModel.setJob_post_id(jobPostId);
 //                    jobViewModel.setCandidate_applied(getAppliedNumber(jobPostId));
-                    Log.v("viewjob", getAppliedNumber(jobPostId)+"");
+//                    Log.v("viewjob", getAppliedNumber(jobPostId)+"");
 
                     // todo: fn which returns rows from appliedtable found for job if
                     jobs.add(jobViewModel);
@@ -310,20 +315,26 @@ public class DbCreater extends SQLiteOpenHelper {
     public Integer getAppliedNumber(String job_post_id) {
         //Open the database
 
-        Integer candidateApplied=0;
+        int candidateApplied = 0;
 
         try {
             SQLiteDatabase db = this.getReadableDatabase();
 
             String whereCondition = " where job_post_id=" + job_post_id;
 
-            String selectQuerySQLCommand = "SELECT * FROM " + ApplyJobTable.APPLIEDJOB_COLUMN_JOBPOST_ID + whereCondition + " ORDER BY _id DESC";
+            Log.v("Done2jobpostid", "" + job_post_id);
+            Log.v("Done2applied num", "" + candidateApplied);
+
+            String selectQuerySQLCommand = "SELECT * FROM " + ApplyJobTable.APPLIEDJOB_TABLE_NAME + whereCondition + " ORDER BY _id DESC";
             Cursor cursor = db.rawQuery(selectQuerySQLCommand, null);
 
 
             try {
-                cursor.moveToNext();
-                candidateApplied=cursor.getCount();
+                while (cursor.moveToNext()) {
+                    candidateApplied += 1;
+                    Log.v("Done2", "" + candidateApplied);
+                }
+
             } finally {
                 cursor.close();
             }

@@ -1,8 +1,8 @@
 package com.jkgupta.android.jobseek;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -21,10 +21,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        editTextEmail = (EditText) findViewById(R.id.editText_login_email);
-        editTextPassword = (EditText) findViewById(R.id.editText_login_password);
-        Button LoginButton = (Button) findViewById(R.id.button_login_login);
-        Button SignupButton = (Button) findViewById(R.id.button_login_signup);
+        editTextEmail = findViewById(R.id.editText_login_email);
+        editTextPassword = findViewById(R.id.editText_login_password);
+        Button LoginButton = findViewById(R.id.button_login_login);
+        Button SignupButton = findViewById(R.id.button_login_signup);
 
         LoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,11 +32,12 @@ public class LoginActivity extends AppCompatActivity {
                 DbCreater dbCreater = new DbCreater(getBaseContext());
                 LoginDataHolder.setEmail(editTextEmail.getText().toString());
                 LoginDataHolder.setPassword(editTextPassword.getText().toString());
+                Log.v("Done", editTextEmail.getText().toString() + "/" + editTextPassword.getText().toString());
                 UserModel userModel=dbCreater.getUser(LoginDataHolder);
                 if(userModel.isUser_in_Db()){
 
                     String user_type_rec="Recruiter";
-                    String user_type_user="User ";
+                    String user_type_user = "Candidate";
 
 
                     if(userModel.getUser_Type().equals(user_type_rec))

@@ -18,7 +18,7 @@ import java.util.List;
 public class CandidateAdapter extends RecyclerView.Adapter<CandidateAdapter.ViewHolder> {
     private List<JobViewModel> jobs;
     private Context context;
-    private JobViewModel job;
+
 
     public CandidateAdapter(List<JobViewModel> jobs, Context context) {
         this.jobs = jobs;
@@ -33,6 +33,7 @@ public class CandidateAdapter extends RecyclerView.Adapter<CandidateAdapter.View
 
     @Override
     public void onBindViewHolder(final CandidateAdapter.ViewHolder holder, final int position) {
+        JobViewModel job;
         job = jobs.get(position);
         Log.v("adapter", job.getSkills());
 
@@ -44,9 +45,9 @@ public class CandidateAdapter extends RecyclerView.Adapter<CandidateAdapter.View
             @Override
             public void onClick(View view) {
                 DbCreater dbCreater = new DbCreater(context);
-                dbCreater.applyJob(job.getJob_post_id(),job.getCandidate_id());
+                dbCreater.applyJob(jobs.get(position).getJob_post_id(), jobs.get(position).getCandidate_id());
                 holder.appliedStatus.setText("Applied");
-                //notifyItemChanged(position);
+                notifyItemChanged(position);
             }
         });
         //holder.appliedStatus.setText("No. of Applied: "+job.getCandidate_applied());
