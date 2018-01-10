@@ -15,7 +15,7 @@ import com.jkgupta.android.jobseek.database.DbCreater;
 
 public class MainActivity extends AppCompatActivity {
     RegistrationModal registrationModal = new RegistrationModal();
-    EditText name, email, password, user_type;
+    EditText name, email, password;
     RadioButton rb;
     private RadioGroup radioGroup;
     private DbCreater dbCreater = new DbCreater(this);
@@ -26,13 +26,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+        radioGroup = findViewById(R.id.radioGroup);
         radioGroup.clearCheck();
+        Log.v("jobseek_mainactivity", "" + radioGroup);
+        Log.v("jobseek_mainactivity", "" + rb);
+
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                rb = (RadioButton) group.findViewById(checkedId);
+                rb = group.findViewById(checkedId);
                 if (null != rb && checkedId > -1) {
                     Toast.makeText(MainActivity.this, rb.getText(), Toast.LENGTH_SHORT).show();
                 }
@@ -50,20 +53,24 @@ public class MainActivity extends AppCompatActivity {
         reg_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                boolean checkValidation = validation();
+                Log.v("jobseek_recactivity", "" + checkValidation);
+                if (checkValidation) {
 
                 registrationModal.setName(name.getText().toString());
                 registrationModal.setEmail(email.getText().toString());
                 registrationModal.setPassword(password.getText().toString());
                 registrationModal.setUser_type(rb.getText().toString());
-                Log.v("Pune", registrationModal.getPassword());
+                    Log.v("jobseek_mainactivity", registrationModal.getName());
+                    Log.v("jobseek_mainactivity", registrationModal.getEmail());
+                    Log.v("jobseek_mainactivity", registrationModal.getPassword());
+                    Log.v("jobseek_mainactivity", registrationModal.getUser_type());
                 dbCreater.addUser(registrationModal);
-
-
-                Toast.makeText(MainActivity.this, rb.getText(), Toast.LENGTH_SHORT).show();
                 Toast.makeText(MainActivity.this, "Registered", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-                startActivity(intent);
+                    startActivity(intent);
+                }
+
             }
         });
         login_Button.setOnClickListener(new View.OnClickListener() {
@@ -75,6 +82,28 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    public boolean validation() {
+        String checkName = name.getText().toString();
+        String checkEmail = email.getText().toString();
+        String checkPassword = password.getText().toString();
+        boolean validationStatus = true;
+
+        if (checkName.matches("")) {
+            validationStatus = false;
+            Toast.makeText(MainActivity.this, "Fill Your Name", Toast.LENGTH_SHORT).show();
+        } else if (checkEmail.matches("")) {
+            validationStatus = false;
+            Toast.makeText(MainActivity.this, "Fill Your Email", Toast.LENGTH_SHORT).show();
+        } else if (checkPassword.matches("")) {
+            validationStatus = false;
+            Toast.makeText(MainActivity.this, "Fill Your Password", Toast.LENGTH_SHORT).show();
+        } else if (null == rb) {
+            validationStatus = false;
+            Toast.makeText(MainActivity.this, "Select Any Type", Toast.LENGTH_SHORT).show();
+        }
+        return validationStatus;
     }
 
 

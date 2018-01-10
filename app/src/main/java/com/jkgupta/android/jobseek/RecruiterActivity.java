@@ -15,7 +15,7 @@ import com.jkgupta.android.jobseek.database.DbCreater;
 import java.util.ArrayList;
 
 public class RecruiterActivity extends AppCompatActivity {
-    TextView name,email;
+    TextView name, email, haspostedJob;
     Button createJob;
     Button logout;
     RecyclerView recyclerView;
@@ -29,6 +29,7 @@ public class RecruiterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recruiter);
         createJob = findViewById(R.id.bt_postJob);
         logout=findViewById(R.id.bt_rec_logout);
+        haspostedJob = findViewById(R.id.tv_rec_hasJobs);
 
 
 
@@ -62,10 +63,16 @@ email.setText("Email: "+b.getString("email"));
             }
         });
         ArrayList<JobViewModel> jobs=dbCreater.viewJobPosted(b);
-        Log.v("in add job", jobs.toString());
-        adapter = new RecruiterAdapter(jobs, this);
-        recyclerView.setAdapter(adapter);
-        onBackPressed();
+        Log.v("jobseek_recactivity", "" + jobs);
+        if (jobs.size() > 0) {
+
+            adapter = new RecruiterAdapter(jobs, this);
+            recyclerView.setAdapter(adapter);
+            haspostedJob.setVisibility(View.GONE);
+        } else {
+            haspostedJob.setVisibility(View.VISIBLE);
+
+        }
     }
 
     @Override

@@ -32,15 +32,17 @@ public class LoginActivity extends AppCompatActivity {
                 DbCreater dbCreater = new DbCreater(getBaseContext());
                 LoginDataHolder.setEmail(editTextEmail.getText().toString());
                 LoginDataHolder.setPassword(editTextPassword.getText().toString());
-                Log.v("Done", editTextEmail.getText().toString() + "/" + editTextPassword.getText().toString());
+                Log.v("jobseek_loginactivity", "Email:" + editTextEmail.getText().toString() + "/" + "Password:" + editTextPassword.getText().toString());
                 UserModel userModel=dbCreater.getUser(LoginDataHolder);
                 if(userModel.isUser_in_Db()){
 
                     String user_type_rec="Recruiter";
                     String user_type_user = "Candidate";
-
+                    Log.v("jobseek_loginactivity", "check type req" + userModel.getUser_Type().equals(user_type_rec));
+                    Log.v("jobseek_loginactivity", "check type candidate" + userModel.getUser_Type().equals(user_type_user));
 
                     if(userModel.getUser_Type().equals(user_type_rec))
+
                     {
                         Intent intent = new Intent(getBaseContext(), RecruiterActivity.class);
                         Bundle b = new Bundle();
@@ -52,11 +54,8 @@ public class LoginActivity extends AppCompatActivity {
 
                         intent.putExtras(b);
                         startActivity(intent);
-                    }
-
-                     else if(userModel.getUser_Type().equals(user_type_user))
-                    {
-                    Log.v("candidate",userModel.getUser_Type().equals(user_type_user)+"");
+                    } else if(userModel.getUser_Type().equals(user_type_user)) {
+                        Log.v("candidate",userModel.getUser_Type().equals(user_type_user)+"");
                         Intent intent = new Intent(getBaseContext(), CandidateActivity.class);
                         Bundle b = new Bundle();
                         b.putString("user_type", String.valueOf(userModel.getUser_Type()));
@@ -70,16 +69,13 @@ public class LoginActivity extends AppCompatActivity {
 
                     }
 
-                    Log.v("Pune",userModel.getName()+"Hi");
-                    Log.v("Pune",userModel.getUser_Id()+"Hi");
-                    Toast.makeText(LoginActivity.this,userModel.getName(), Toast.LENGTH_SHORT).show();
+                    Log.v("jobseek_loginactivity", userModel.getName());
+                    Log.v("jobseek_loginactivity", userModel.getUser_Id());
 
+
+                } else {
+                    Toast.makeText(LoginActivity.this,"Detail Not Match", Toast.LENGTH_SHORT).show();
                 }
-                else
-                    {
-                        Toast.makeText(LoginActivity.this,"Detail Not Match", Toast.LENGTH_SHORT).show();
-                    }
-
 
 
             }
@@ -93,6 +89,11 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+    }
+
+    @Override
+    public void onBackPressed() {
 
     }
 }

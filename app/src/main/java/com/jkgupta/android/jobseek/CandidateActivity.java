@@ -1,8 +1,8 @@
 package com.jkgupta.android.jobseek;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,7 +15,7 @@ import com.jkgupta.android.jobseek.database.DbCreater;
 import java.util.ArrayList;
 
 public class CandidateActivity extends AppCompatActivity {
-    TextView name,email;
+    TextView name, email, checkJobsAvability;
     Button logout;
     RecyclerView recyclerView;
     Bundle b;
@@ -30,6 +30,7 @@ public class CandidateActivity extends AppCompatActivity {
        logout = findViewById(R.id.bt_candidate_logout);
         name=findViewById(R.id.tv_candidate_name);
         email=findViewById(R.id.tv_candidate_email);
+        checkJobsAvability = findViewById(R.id.tv_candidate_jobs_available);
 
 
         recyclerView = findViewById(R.id.recyclerViewcandidate);
@@ -51,11 +52,16 @@ logout.setOnClickListener(new View.OnClickListener() {
 });
 
         ArrayList<JobViewModel> jobs=dbCreater.viewJobAll(b);
+        if (jobs.size() > 0) {
+            Log.v("candidateactivity", jobs.toString());
+            adapter = new CandidateAdapter(jobs, this);
+            recyclerView.setAdapter(adapter);
+            checkJobsAvability.setVisibility(View.GONE);
+        } else {
+            checkJobsAvability.setVisibility(View.VISIBLE);
+        }
 
-        Log.v("in add job", jobs.toString());
-        adapter = new CandidateAdapter(jobs, this);
-        recyclerView.setAdapter(adapter);
-         onBackPressed();
+
 
     }
     @Override

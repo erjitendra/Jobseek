@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,20 +7,20 @@
     android:padding="10dp"
     tools:context="com.jkgupta.android.jobseek.RecruiterActivity">
     <TextView
+        android:id="@+id/tv_rec_name"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:textSize="18sp"
         android:text="Jitendra"
-        android:id="@+id/tv_rec_name"
+        android:textSize="18sp"
         />
     <TextView
+        android:id="@+id/tv_rec_email"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:textSize="18sp"
         android:text="jkguptaer@gmail.com"
-        android:id="@+id/tv_rec_email"
+        android:textSize="18sp"
         />
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,25 +28,34 @@
         android:layout_weight="1"
         android:orientation="horizontal">
     <Button
-        android:layout_height="match_parent"
+        android:id="@+id/bt_postJob"
         android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="1"
-        android:text="Post A Job"
-        android:id="@+id/bt_postJob"/>
+        android:text="Post A Job" />
         <Button
-            android:layout_height="match_parent"
+            android:id="@+id/bt_rec_logout"
             android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="LogOut"
-            android:id="@+id/bt_rec_logout"/>
+            android:text="LogOut" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_rec_hasJobs"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="No  Jobs Posted By You"
+        android:textSize="18sp" />
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="7"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
+        android:layout_weight="7"
         >
 
     </android.support.v7.widget.RecyclerView>

@@ -41,15 +41,23 @@ public class CandidateAdapter extends RecyclerView.Adapter<CandidateAdapter.View
         holder.company.setText("Company: "+job.getCompany());
         holder.description.setText("Description: "+job.getDescription());
         holder.email.setText("Email: "+job.getEmail());
-        holder.appliedStatus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DbCreater dbCreater = new DbCreater(context);
-                dbCreater.applyJob(jobs.get(position).getJob_post_id(), jobs.get(position).getCandidate_id());
-                holder.appliedStatus.setText("Applied");
-                notifyItemChanged(position);
-            }
-        });
+        DbCreater dbCreater = new DbCreater(context);
+        boolean appliedStatus = dbCreater.checkAppliedJobs(jobs.get(position).getJob_post_id(), jobs.get(position).getCandidate_id());
+        Log.v("jobseek_applystatus", "" + appliedStatus);
+        if (appliedStatus) {
+            holder.appliedStatus.setText("Applied");
+        } else {
+            holder.appliedStatus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    DbCreater dbCreater = new DbCreater(context);
+                    dbCreater.applyJob(jobs.get(position).getJob_post_id(), jobs.get(position).getCandidate_id());
+                    holder.appliedStatus.setText("Applied");
+                    notifyItemChanged(position);
+                }
+            });
+        }
+
         //holder.appliedStatus.setText("No. of Applied: "+job.getCandidate_applied());
 
         Log.v("adapter", job.getEmail());

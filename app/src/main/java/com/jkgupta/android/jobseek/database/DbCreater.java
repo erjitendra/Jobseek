@@ -73,10 +73,13 @@ public class DbCreater extends SQLiteOpenHelper {
     }
 
     public void addUser(RegistrationModal user) {
-        Log.v("Pune", user.getName());
+        Log.v("jobseek_adduserin_db", user.getName());
+        Log.v("jobseek_adduserin_db", user.getEmail());
+        Log.v("jobseek_adduserin_db", user.getPassword());
+        Log.v("jobseek_adduserin_db", user.getUser_type());
         SQLiteDatabase db = this.getWritableDatabase();
 
-        Log.v("Pune", "before content model");
+
 
         ContentValues values = new ContentValues();
         values.put(UserDataTable.USER_COLUMN_NAME, user.getName());
@@ -178,6 +181,25 @@ public class DbCreater extends SQLiteOpenHelper {
         db1.insert(ApplyJobTable.APPLIEDJOB_TABLE_NAME, null, values);
         db1.close();
         Log.v("Done", "Applied successful");
+    }
+
+    public boolean checkAppliedJobs(String job_post_id, String candidate_id) {
+        boolean appliedStatus = false;
+        Log.v("jobseek_applystatusindb", "" + job_post_id + "/" + candidate_id);
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String whereCondition = " where job_post_id=" + job_post_id + " AND" + " candidate_id=" + candidate_id;
+
+        String selectQuerySQLCommand = "SELECT * FROM " + ApplyJobTable.APPLIEDJOB_TABLE_NAME + whereCondition + " ORDER BY _id DESC";
+        Cursor cursor = db.rawQuery(selectQuerySQLCommand, null);
+        Log.v("jobseek_applystatusindb", "" + cursor);
+        Log.v("jobseek_applystatusindb", "" + cursor.getCount());
+        if (cursor.getCount() > 0) {
+            appliedStatus = true;
+
+            Log.v("Done", "Applied successful");
+        }
+        return appliedStatus;
     }
 
     public ArrayList<JobViewModel> viewJobPosted(Bundle bundle) {
